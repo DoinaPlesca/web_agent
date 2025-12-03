@@ -1,0 +1,43 @@
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+
+# ---- Virtual Environment ----
+venv/
+env/
+ENV/
+.venv/
+
+# ---- IDE / Editor Files ----
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm / JetBrains
+.idea/
+*.iml
+
+
+
+# ---- Logs / Cache ----
+*.log
+.cache/
+logs/
+
+# ---- Python packaging ----
+build/
+dist/
+*.egg-info/
+
+# ---- Autogen / API Keys ----
+config.py
+*.env
+.env*
+
+# ---- Jupyter ----
+.ipynb_checkpoints/
