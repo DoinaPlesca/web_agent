@@ -1,5 +1,5 @@
 ````bash
-C:\Users\Doina\web_agent\.venv\Scripts\activate
+C:\Users\*****\web_agent\.venv\Scripts\activate
 
 ````
 
