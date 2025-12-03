@@ -68,4 +68,5 @@ def run_stock_scraper(url: str):
     return evaluation_json
 
 if __name__ == "__main__":
-    run_stock_scraper("https://www.google.com/finance/quote/META:NASDAQ")
+    run_stock_scraper("https://finance.yahoo.com/quote/META")
+
