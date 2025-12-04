@@ -70,3 +70,8 @@ def run_stock_scraper(url: str):
 if __name__ == "__main__":
     run_stock_scraper("https://finance.yahoo.com/quote/META")
 
+
+##from src.utils.run_all_tests import run_all_test_cases_and_export
+
+##if __name__ == "__main__":
+  ##  run_all_test_cases_and_export()
