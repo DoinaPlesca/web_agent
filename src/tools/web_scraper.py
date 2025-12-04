@@ -2,11 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 
 def get_stock_price(url: str) -> dict:
-    """
-    Extracts stock price from Yahoo Finance (stable and reliable).
-    """
-
     try:
+        if "/quote/" not in url:
+            return {"success": False, "error": "Invalid URL. Not a stock quote page."}
+
         headers = {
             "User-Agent": (
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -18,7 +17,6 @@ def get_stock_price(url: str) -> dict:
         r = requests.get(url, headers=headers, timeout=10)
         soup = BeautifulSoup(r.text, "html.parser")
 
-        # Yahoo's consistent selector for stock price
         price_tag = soup.select_one('fin-streamer[data-field="regularMarketPrice"]')
 
         if not price_tag:
@@ -26,7 +24,7 @@ def get_stock_price(url: str) -> dict:
 
         return {
             "success": True,
-            "price": price_tag.text.strip(),
+            "price": float(price_tag.text.replace(",", "")),
             "source_url": url
         }
 

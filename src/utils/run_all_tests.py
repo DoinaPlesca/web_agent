@@ -1,38 +1,34 @@
-from autogen import register_function
-from src.tools.web_scraper import get_stock_price
-from src.agents.researcher_agent import researcher
-from src.agents.user_proxy import user_proxy
-
+import json
 from src.utils.run_single_test import run_stock_scraper
 from src.utils.markdown_export import export_use_cases_to_markdown
 
-
-
-register_function(
-    get_stock_price,
-    caller=researcher,
-    executor=user_proxy,
-    name="get_stock_price",
-    description="Extracts stock price from the given financial webpage."
-)
-
-
 def run_all_test_cases_and_export():
 
-    test_urls = [
-        "https://www.google.com/finance/quote/META:NASDAQ",
-        "https://www.google.com/finance/quote/AAPL:NASDAQ",
-        "https://www.google.com/finance/quote/GOOG:NASDAQ",
-        "https://www.google.com/finance/quote/INVALID:NASDAQ",
-        "https://www.google.com/finance/"
+    test_cases = [
+        ("Valid stock: META", "https://finance.yahoo.com/quote/META"),
+        ("Valid stock: AAPL", "https://finance.yahoo.com/quote/AAPL"),
+        ("Valid stock: GOOG", "https://finance.yahoo.com/quote/GOOG"),
+        ("Invalid ticker", "https://finance.yahoo.com/quote/INVALID"),
+        ("Non-stock homepage", "https://finance.yahoo.com/")
     ]
 
     results = []
 
-    for url in test_urls:
-        print(f"\nRunning: {url}")
+    for name, url in test_cases:
+        print(f"Running: {name}")
         result = run_stock_scraper(url)
-        results.append((url, result))
+
+        try:
+            evaluator_json = json.loads(result["evaluator_output"])
+        except:
+            evaluator_json = {"evaluation": "FAILURE", "reason": "Invalid JSON", "is_valid_price": False}
+
+        results.append({
+            "test_name": name,
+            "url": url,
+            "researcher_output": result["researcher_output"],
+            "evaluator_output": evaluator_json
+        })
 
     export_use_cases_to_markdown(results)
-    print("\nAll tests finished.\n")
+    print(" Results exported to use_cases.md")
