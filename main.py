@@ -17,7 +17,6 @@ register_function(
     description="Extracts stock price from the given financial webpage."
 )
 
-
 def run_stock_scraper(url: str):
     task_prompt = (
         f"Extract the stock price from this webpage:\n{url}\n"
@@ -32,17 +31,10 @@ def run_stock_scraper(url: str):
 
     researcher_output = chat_result.summary
 
-    evaluator_prompt = (
-        "You are evaluating the Researcher's stock price extraction.\n\n"
-        f"User request:\n{task_prompt}\n\n"
-        f"Researcher output:\n{researcher_output}\n\n"
-        "Evaluate according to your criteria and output JSON only."
-    )
 
     evaluator_result = user_proxy.initiate_chat(
         evaluator,
-        message=evaluator_prompt,
-        summary_method="last_msg"
+        message=f"The user asked for: {task_prompt}\n\nThe researcher provided this result:\n{researcher_output}\n\nDid the researcher succeed?",
     )
 
     print("\n--- Evaluation Complete ---\n")
@@ -74,4 +66,4 @@ if __name__ == "__main__":
 ##from src.utils.run_all_tests import run_all_test_cases_and_export
 
 ##if __name__ == "__main__":
-  ##  run_all_test_cases_and_export()
+  #  run_all_test_cases_and_export()

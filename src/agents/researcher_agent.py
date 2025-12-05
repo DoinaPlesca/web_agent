@@ -3,7 +3,7 @@ from autogen import AssistantAgent
 from config import LLM_CONFIG
 
 researcher = AssistantAgent(
-    name="Researcher",
+    name="researcher",
     llm_config=LLM_CONFIG,
     system_message=(
         "You are a Web Scraping Research Agent. Your only task is to extract a stock "

@@ -1,9 +1,8 @@
-
 from autogen import AssistantAgent
 from config import LLM_CONFIG
 
 evaluator = AssistantAgent(
-    name="Evaluator",
+    name="evaluator",
     llm_config=LLM_CONFIG,
     system_message=(
         "You are an external evaluator for a stock price extraction agent.\n"
