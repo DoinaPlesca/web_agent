@@ -1,7 +1,31 @@
 import requests
 from bs4 import BeautifulSoup
+import time
+
+
+CACHE = {} # store cached result
+CACHE_TTL = 300 #chache valid for 5 min
+
+
 
 def get_stock_price(url: str) -> dict:
+    """Scrapes stock price with caching and TTL expiration."""
+
+    # check if URL is cached and  is still valid
+    current_time = time.time()
+    if url in CACHE:
+        cached_entry = CACHE[url]
+        age = current_time - cached_entry["timestamp"]
+
+        if age < CACHE_TTL:
+            # Cache hit (valid)
+            return {
+                "success": True,
+                "price": cached_entry["price"],
+                "source_url": url,
+                "cached": True
+            }
+    # validate url
     try:
         if "/quote/" not in url:
             return {"success": False, "error": "Invalid URL. Not a stock quote page."}
@@ -22,10 +46,19 @@ def get_stock_price(url: str) -> dict:
         if not price_tag:
             return {"success": False, "error": "Price not found"}
 
+        price = float(price_tag.text.replace(",", ""))
+
+        # store in cache
+        CACHE[url] = {
+            "price": price,
+            "timestamp": current_time
+        }
+
         return {
             "success": True,
-            "price": float(price_tag.text.replace(",", "")),
-            "source_url": url
+            "price": price,
+            "source_url": url,
+            "cached": False
         }
 
     except Exception as e:
