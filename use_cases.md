@@ -27,7 +27,7 @@ https://finance.yahoo.com/quote/AAPL
 
 ### Researcher Output
 ```
-{"stock_price": 193.12, "source": "https://finance.yahoo.com/quote/AAPL"}
+{"stock_price": 278.12, "source": "https://finance.yahoo.com/quote/AAPL"}
 ```
 
 ### Evaluator Output
@@ -46,7 +46,7 @@ https://finance.yahoo.com/quote/GOOG
 
 ### Researcher Output
 ```
-{"stock_price": 142.55, "source": "https://finance.yahoo.com/quote/GOOG"}
+{"stock_price": 322.09, "source": "https://finance.yahoo.com/quote/GOOG"}
 ```
 
 ### Evaluator Output
