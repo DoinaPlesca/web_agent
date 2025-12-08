@@ -43,9 +43,9 @@ User → Researcher → Evaluator → Final Output
 ````
 web_agent/
 │
-├── main.py                 # Runs the sequential Researcher → Evaluator pipeline
+├── main.py                
 ├── README.md
-├── use_cases.md            # Automatically generated: includes 5 real use cases
+├── use_cases.md            
 │
 ├── src/
 │   ├── agents/
@@ -54,7 +54,7 @@ web_agent/
 │   │   └── user_proxy.py
 │   │
 │   └── tools/
-│       └── web_scraper.py   # Scraper with caching, retries, rate limiting
+│       └── web_scraper.py   
 │
 └── requirements.txt
 
@@ -73,29 +73,31 @@ python-dotenv
 requests
 beautifulsoup4
 ````
-Install with:
+### Setup Instructions
+
+##### 1. Create and activate a virtual environment
+
+````bash
+py -3.12 -m venv .venv
+
+.\.venv\Scripts\activate
+
+````
+
+##### 2. Install dependencies
 
 ````bash
 pip install -r requirements.txt
 
 ````
 
-### Setup Instructions
-
-##### 1. Create and activate a virtual environment
-
-````bash
-python -m venv .venv
-.\.venv\Scripts\activate
-````
-
-##### 2. Add API key
+##### 3. Add API key
 Create a .env file:
 ````
 MISTRAL_API_KEY=api_key
 ````
 
-##### 3. Run the Web Scraping Agent
+##### 4. Run the Web Scraping Agent
 ````bash
 python main.py
 
@@ -104,7 +106,7 @@ python main.py
 ##### 4. Output
 ````aiignore
 Suggested tool call: get_stock_price
-Tool response: {"success": true, "price": 184.55, ...}
+Tool response: {"success": true, "price": 668.57, ...}
 
 Researcher Output:
 {"stock_price": 668.57, "source": "https://finance.yahoo.com/quote/META"}

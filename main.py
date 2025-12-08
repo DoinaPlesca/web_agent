@@ -31,12 +31,10 @@ def run_stock_scraper(url: str):
 
     researcher_output = chat_result.summary
 
-
     evaluator_result = user_proxy.initiate_chat(
         evaluator,
         message=f"The user asked for: {task_prompt}\n\nThe researcher provided this result:\n{researcher_output}\n\nDid the researcher succeed?",
     )
-
     print("\n--- Evaluation Complete ---\n")
 
     try:
@@ -64,6 +62,5 @@ if __name__ == "__main__":
 
 
 ##from src.utils.run_all_tests import run_all_test_cases_and_export
-
 ##if __name__ == "__main__":
   #  run_all_test_cases_and_export()

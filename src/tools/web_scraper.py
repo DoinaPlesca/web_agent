@@ -4,15 +4,15 @@ from bs4 import BeautifulSoup
 import time
 
 
-CACHE = {} # store cached result
-CACHE_TTL = 300 #chache valid for 5 min
+CACHE = {}
+CACHE_TTL = 300
 
-MAX_REQUESTS_PER_MINUTE = 10        # Global rate limit
-REQUEST_HISTORY = []                # Timestamp list for rate limiting
+MAX_REQUESTS_PER_MINUTE = 10
+REQUEST_HISTORY = []
 REQUEST_HISTORY_LOCK = threading.Lock()
 
-MAX_RETRIES = 3                     # Retry attempts for scraping
-BACKOFF_BASE = 1                    # Exponential backoff base (1, 2, 4 sec)
+MAX_RETRIES = 3
+BACKOFF_BASE = 1
 
 
 def rate_limited():

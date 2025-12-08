@@ -9,7 +9,7 @@ researcher = AssistantAgent(
         "You are a Web Scraping Research Agent. Your only task is to extract a stock "
         "price using the get_stock_price tool.\n\n"
 
-        "When the user requests a stock price, you must call the get_stock_price tool. "
+        "When the user requests a stock price, call the get_stock_price tool. "
         "Do not output any JSON until after the tool has responded.\n\n"
 
         "Do not wrap outputs in backticks or code fences.\n"
