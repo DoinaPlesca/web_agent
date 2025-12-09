@@ -1,5 +1,7 @@
 import json
 from pprint import pprint
+
+from src.agents.reflection_agent import reflection_agent
 from src.tools.web_scraper import get_stock_price
 from src.agents.user_proxy import user_proxy
 from src.agents.researcher_agent import researcher
@@ -7,6 +9,7 @@ from src.agents.evaluator_agent import evaluator
 from autogen import register_function
 import warnings
 warnings.filterwarnings("ignore")
+
 
 
 register_function(
@@ -28,14 +31,27 @@ def run_stock_scraper(url: str):
         message=task_prompt,
         summary_method="last_msg"
     )
-
     researcher_output = chat_result.summary
+
+    """
+    reflection_result = user_proxy.initiate_chat(
+        reflection_agent,
+        message=f"Here is the Researcher's JSON:\n{researcher_output}\n\nProvide critique.",
+        summary_method="last_msg"
+    )
+    reflection_text = reflection_result.summary
+    """
 
     evaluator_result = user_proxy.initiate_chat(
         evaluator,
-        message=f"The user asked for: {task_prompt}\n\nThe researcher provided this result:\n{researcher_output}\n\nDid the researcher succeed?",
+        message=(
+            f"The user asked for: {task_prompt}\n\n"
+            f"Researcher output:\n{researcher_output}\n\n"
+           #f"Reflection critique:\n{reflection_text}\n\n"
+        )
     )
     print("\n--- Evaluation Complete ---\n")
+
 
     try:
         evaluation_json = json.loads(evaluator_result.summary)
@@ -59,8 +75,3 @@ def run_stock_scraper(url: str):
 
 if __name__ == "__main__":
     run_stock_scraper("https://finance.yahoo.com/quote/META")
-
-
-##from src.utils.run_all_tests import run_all_test_cases_and_export
-##if __name__ == "__main__":
-  #  run_all_test_cases_and_export()

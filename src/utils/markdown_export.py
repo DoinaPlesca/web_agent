@@ -5,7 +5,7 @@ def export_use_cases_to_markdown(results):
     timestamp = datetime.datetime.now()
 
     with open("use_cases.md", "w", encoding="utf-8") as f:
-        f.write("# Web Scraping Agent – Use Case Demonstrations\n")
+        f.write("# Web Scraping Agent\n")
         f.write(f"Generated on: {timestamp}\n\n")
 
         for case in results:

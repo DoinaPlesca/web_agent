@@ -1,4 +1,4 @@
-# Web Scraping Agent – Real Use Case Demonstrations
+# Web Scraping Agent 
 Generated on: 2025-12-03 19:36:55.680037
 ## Valid stock: META
 
