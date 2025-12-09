@@ -48,6 +48,7 @@ def run_stock_scraper(url: str):
             f"The user asked for: {task_prompt}\n\n"
             f"Researcher output:\n{researcher_output}\n\n"
            #f"Reflection critique:\n{reflection_text}\n\n"
+            f"Did the researcher succeed?"
         )
     )
     print("\n--- Evaluation Complete ---\n")
