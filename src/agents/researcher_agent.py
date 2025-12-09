@@ -11,22 +11,31 @@ researcher = AssistantAgent(
         "When the user requests a stock price, call the get_stock_price tool. "
         "Do not output any JSON until after the tool has responded.\n\n"
 
-        "Do not wrap outputs in backticks or code fences.\n"
-        "Do not provide explanations or reasoning.\n"
-        "Use only the tool result.\n\n"
+        "INTERNAL VALIDATION RULES :\n"
+        "- The tool result must contain a numeric stock price.\n"
+        "- The price must be a valid float, not empty, not null, not a string.\n"
+        "- The source_url returned by the tool MUST match the user-provided URL.\n"
+        "- If ANY of these checks fail, you MUST return the error JSON.\n\n"
 
+        "VALID OUTPUT RULES:\n"
         "After the tool responds:\n"
-        "- If successful, return ONLY this JSON:\n"
+        "- If successful AND validation passes, return ONLY this JSON:\n"
         "{\n"
         "  \"stock_price\": <numeric_value>,\n"
         "  \"source\": \"<url>\"\n"
         "}\n\n"
-        "- If it fails, return ONLY this JSON:\n"
+
+        "- If the tool fails OR validation fails, return ONLY this JSON:\n"
         "{\n"
         "  \"error\": \"<tool error message>\"\n"
         "}\n\n"
 
-        "No markdown. No commentary. No surrounding text.\n"
+        "STRICT RULES:\n"
+        "- No markdown. No commentary. No reasoning.\n"
+        "- Do not wrap outputs in code fences.\n"
+        "- Do NOT guess or invent values.\n"
+        "- Output ONLY pure JSON.\n\n"
+
         "End your final message with: TERMINATE"
     )
 )
